@@ -1,62 +1,70 @@
 (function() {
-  // Select elements scoped to the component
   const container = document.querySelector('.ms-login-container');
   const anchor = document.querySelector('.ms-login-card-anchor');
   const card = document.querySelector('.ms-login-card');
-  // Add interaction listener for 3D Tilt Effect
-  if (container && anchor) {
+  const navToggle = document.querySelector('.ms-nav-toggle');
+  const navMenu = document.querySelector('.ms-nav-menu');
+  // Mobile Menu Toggle
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      const spans = navToggle.querySelectorAll('span');
+      if (navMenu.classList.contains('open')) {
+        navMenu.style.display = 'flex';
+        navMenu.style.position = 'absolute';
+        navMenu.style.top = '70px';
+        navMenu.style.left = '0';
+        navMenu.style.width = '100%';
+        navMenu.style.background = 'rgba(0,0,0,0.95)';
+        navMenu.style.flexDirection = 'column';
+        navMenu.style.padding = '20px';
+      } else {
+        navMenu.style.display = 'none';
+      }
+    });
+  }
+  // 3D Tilt Effect - strictly limited to desktop viewport
+  if (container && anchor && window.innerWidth > 768) {
     container.addEventListener('mousemove', (e) => {
       const rect = container.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const mouseX = e.clientX - centerX;
       const mouseY = e.clientY - centerY;
-      const rotateX = (mouseY / (rect.height / 2)) * -12;
-      const rotateY = (mouseX / (rect.width / 2)) * 12;
+      const rotateX = (mouseY / (rect.height / 2)) * -5;
+      const rotateY = (mouseX / (rect.width / 2)) * 5;
       anchor.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      // Parallax effect for the content layers
-      const content = card.querySelector('.ms-login-content');
-      if (content) {
-        content.style.transform = `translateX(${rotateY * 0.4}px) translateY(${rotateX * -0.4}px)`;
-      }
-      // Slight movement of background for depth
-      container.style.backgroundPosition = `${50 + (mouseX / rect.width) * 2}% ${50 + (mouseY / rect.height) * 2}%`;
     });
-    // Reset on mouse leave
     container.addEventListener('mouseleave', () => {
-      anchor.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+      anchor.style.transition = 'transform 0.5s ease';
       anchor.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      const content = card.querySelector('.ms-login-content');
-      if (content) {
-        content.style.transform = 'none';
-      }
-      container.style.backgroundPosition = 'center';
       setTimeout(() => {
         anchor.style.transition = 'transform 0.1s ease-out';
-      }, 600);
+      }, 500);
     });
   }
-  // Handle Form Submission visual feedback
+  // Form Simulation
   const form = document.querySelector('.ms-login-form');
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('.ms-login-submit');
-      const textSpan = btn.querySelector('.ms-btn-text');
-      const originalText = textSpan.innerText;
-      btn.style.pointerEvents = 'none';
-      textSpan.innerText = 'BYPASSING FIREWALL...';
-      btn.style.background = '#333';
-      // Simulated authentication delay
+      const originalText = btn.innerText;
+      btn.innerText = 'VERIFYING...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
       setTimeout(() => {
-        textSpan.innerText = 'ACCESS DENIED: CLEARANCE LEVEL 7 REQUIRED';
-        btn.style.background = '#ff0000';
+        btn.innerText = 'ACCESS DENIED';
+        btn.style.background = '#000';
+        btn.style.color = '#f00';
+        btn.style.opacity = '1';
         setTimeout(() => {
-          textSpan.innerText = originalText;
+          btn.innerText = originalText;
           btn.style.background = '';
-          btn.style.pointerEvents = 'all';
-        }, 2500);
-      }, 1800);
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 2000);
+      }, 1500);
     });
   }
 })();

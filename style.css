@@ -5,8 +5,9 @@
   --ms-card-bg: rgba(15, 15, 15, 0.92);
   --ms-text: #ffffff;
   --ms-border: rgba(255, 255, 255, 0.15);
-  --ms-glow: rgba(226, 54, 54, 0.5);
+  --ms-glow: rgba(226, 54, 54, 0.6);
   --ms-font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ms-nav-height: 70px;
 }
 
 .ms-login-container {
@@ -16,7 +17,6 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  /* Main cinematic background */
   background: linear-gradient(var(--ms-bg-dark), var(--ms-bg-dark)), var(--ms-bg-img);
   background-size: cover;
   background-position: center;
@@ -27,7 +27,177 @@
   overflow: hidden;
 }
 
-/* Comic halftone pattern overlay */
+.ms-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--ms-nav-height);
+  padding: 0 40px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+  border-bottom: 1px solid var(--ms-border);
+  backdrop-filter: blur(8px);
+}
+
+.ms-nav-marvel-logo {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.ms-led-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border: 1px solid rgba(226, 54, 54, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 10px rgba(226, 54, 54, 0.1);
+}
+
+.ms-marvel-box {
+  background: var(--ms-primary);
+  color: white;
+  font-weight: 900;
+  font-size: 1.2rem;
+  padding: 2px 6px;
+  letter-spacing: -1px;
+  line-height: 1;
+  box-shadow: 0 0 12px var(--ms-glow);
+  animation: ms-led-flicker 4s infinite ease-in-out;
+}
+
+.ms-studios-text {
+  color: white;
+  font-size: 0.5rem;
+  letter-spacing: 3px;
+  font-weight: bold;
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  padding-left: 8px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes ms-led-flicker {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--ms-glow);
+  }
+
+  92% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--ms-glow);
+  }
+
+  93% {
+    opacity: 0.8;
+    box-shadow: 0 0 4px var(--ms-glow);
+  }
+
+  94% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--ms-glow);
+  }
+
+  95% {
+    opacity: 0.9;
+    box-shadow: 0 0 8px var(--ms-glow);
+  }
+
+  96% {
+    opacity: 1;
+    box-shadow: 0 0 14px var(--ms-glow);
+  }
+}
+
+.ms-nav-menu {
+  display: flex;
+  gap: 30px;
+}
+
+.ms-nav-link {
+  color: #bbb;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px 0;
+}
+
+.ms-nav-link:hover,
+.ms-nav-link.active {
+  color: white;
+  text-shadow: 0 0 10px var(--ms-glow);
+}
+
+.ms-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--ms-primary);
+  transition: width 0.3s ease;
+}
+
+.ms-nav-link:hover::after,
+.ms-nav-link.active::after {
+  width: 100%;
+}
+
+.ms-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--ms-border);
+}
+
+.ms-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff00;
+  animation: ms-blink 1.5s infinite;
+}
+
+.ms-status-label {
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: #aaa;
+  font-weight: bold;
+}
+
+.ms-nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.ms-nav-toggle span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: white;
+  transition: 0.3s;
+}
+
 .ms-bg-texture {
   position: absolute;
   inset: 0;
@@ -44,6 +214,7 @@
   max-width: 420px;
   transform-style: preserve-3d;
   transition: transform 0.1s ease-out;
+  margin-top: 40px;
 }
 
 .ms-login-card {
@@ -58,7 +229,6 @@
   overflow: hidden;
 }
 
-/* Top Tech Border Effect */
 .ms-login-card::before {
   content: '';
   position: absolute;
@@ -73,10 +243,9 @@
 .ms-login-header {
   text-align: center;
   margin-bottom: 35px;
-  transform: translateZ(60px);
 }
 
-.ms-marvel-logo {
+.ms-marvel-logo-main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,6 +261,7 @@
   letter-spacing: -2px;
   line-height: 0.9;
   display: inline-block;
+  text-transform: uppercase;
 }
 
 .ms-marvel-studios {
@@ -105,127 +275,147 @@
   padding: 3px 0;
   width: 100%;
   max-width: 160px;
+  display: inline-block;
 }
 
-.ms-login-header h2 {
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  color: #aaa;
-  margin-top: 20px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.ms-login-form {
-  transform: translateZ(40px);
+#ms-login-title {
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  margin-top: 15px;
+  color: #888;
+  font-weight: 400;
 }
 
 .ms-input-group {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .ms-input-group label {
   display: block;
   font-size: 0.7rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #ddd;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
 }
 
 .ms-input-group input {
   width: 100%;
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.07);
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--ms-border);
   color: white;
   box-sizing: border-box;
   transition: all 0.3s ease;
   outline: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .ms-input-group input:focus {
   border-color: var(--ms-primary);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 15px rgba(226, 54, 54, 0.3);
+  box-shadow: 0 0 10px var(--ms-glow);
 }
 
 .ms-login-submit {
   width: 100%;
-  padding: 16px;
+  padding: 14px;
   background: var(--ms-primary);
   color: white;
   border: none;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  margin-top: 15px;
-  box-shadow: 0 10px 20px -5px rgba(226, 54, 54, 0.4);
-}
-
-.ms-login-submit:hover {
-  filter: brightness(1.15);
-  transform: translateY(-2px);
-  box-shadow: 0 15px 25px -5px rgba(226, 54, 54, 0.5);
+  transition: transform 0.2s, background 0.3s;
+  margin-top: 10px;
 }
 
 .ms-login-submit:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
+/* FIXED FOOTER STYLES: Explicitly scoped to avoid conflicts with Logo spans */
 .ms-form-footer {
-  margin-top: 30px;
+  margin-top: 25px;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 12px;
-  font-size: 0.75rem;
-  color: #888;
+  font-family: var(--ms-font-main);
 }
 
-.ms-link {
-  color: #bbb;
+.ms-form-footer .ms-link {
+  color: #777;
   text-decoration: none;
-  transition: color 0.3s ease;
-  letter-spacing: 0.5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
 }
 
-.ms-link:hover {
+.ms-form-footer .ms-link:hover {
   color: var(--ms-primary);
 }
 
-/* Visual effects */
+.ms-form-footer .ms-divider {
+  color: #444;
+  font-size: 0.7rem;
+  user-select: none;
+}
+
 .ms-card-scanline {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.03) 50%);
+  background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.02) 50%);
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 5;
 }
 
-.ms-card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
-  pointer-events: none;
+@keyframes ms-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
 }
 
-/* Responsive scaling */
+@media (max-width: 768px) {
+  .ms-nav-menu {
+    display: none;
+  }
+
+  .ms-nav-toggle {
+    display: flex;
+  }
+}
+
 @media (max-width: 480px) {
   .ms-login-card {
-    padding: 35px 25px;
+    padding: 30px 20px;
   }
 
   .ms-marvel-red {
-    font-size: 2.1rem;
+    font-size: 2rem;
+  }
+
+  .ms-form-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ms-form-footer .ms-divider {
+    display: none;
   }
 }

@@ -17,11 +17,43 @@
   <!-- Background Overlay for Comic Texture -->
   <div class="ms-bg-texture"></div>
 
+  <!-- Navigation Bar -->
+  <nav class="ms-navbar">
+    <div class="ms-nav-brand">
+      <!-- Modified Logo Section: Marvel Studios LED Style -->
+      <div class="ms-nav-marvel-logo">
+        <div class="ms-led-wrapper">
+          <span class="ms-marvel-box">MARVEL</span>
+          <span class="ms-studios-text">STUDIOS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-nav-menu" id="ms-nav-menu">
+      <a href="#" class="ms-nav-link active">DASHBOARD</a>
+      <a href="#" class="ms-nav-link">MISSIONS</a>
+      <a href="#" class="ms-nav-link">INTEL</a>
+      <a href="#" class="ms-nav-link">ARCHIVES</a>
+    </div>
+
+    <div class="ms-nav-actions">
+      <div class="ms-status-indicator">
+        <span class="ms-dot"></span>
+        <span class="ms-status-label">ENCRYPTED</span>
+      </div>
+      <button class="ms-nav-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
   <div class="ms-login-card-anchor">
     <div class="ms-login-card" aria-labelledby="ms-login-title" role="region">
       <div class="ms-login-content">
         <div class="ms-login-header">
-          <div class="ms-marvel-logo">
+          <div class="ms-marvel-logo-main">
             <span class="ms-marvel-red">MARVEL</span>
             <span class="ms-marvel-studios">STUDIOS</span>
           </div>
@@ -46,6 +78,7 @@
             <div class="ms-btn-glitch"></div>
           </button>
 
+          <!-- Fixed Form Footer: Scoped specifically to prevent CSS leak from Logo styles -->
           <div class="ms-form-footer">
             <a href="#" class="ms-link">Request Clearance</a>
             <span class="ms-divider">|</span>
